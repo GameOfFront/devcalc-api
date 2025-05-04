@@ -23,7 +23,7 @@ jobs:
       - name: Build com Maven
         run: mvn clean install
         working-directory: ./devcalc-api
-      
+
       - name: Executar Testes
         run: mvn test
         working-directory: ./devcalc-api
@@ -43,6 +43,7 @@ jobs:
 
       - name: Empacotar aplicação
         run: mvn package
+        working-directory: ./devcalc-api
 
   deploy:
     runs-on: ubuntu-latest
