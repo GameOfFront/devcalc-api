@@ -2,6 +2,8 @@ package com.devcalc;
 
 import io.javalin.Javalin;
 
+// Teste manual do CI/CD
+
 public class DevCalcApp {
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(7000);
