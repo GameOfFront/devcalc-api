@@ -7,9 +7,8 @@ DevCalc é uma API REST em Java que fornece operações matemáticas simples com
 - Maven
 - Javalin
 
-## 🚀 Como executar localmente
+## omo executar localmente
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/devcalc-api.git
-   cd devcalc-api
+   git clone https://github.com/GameOfFront/devcalc-api.git
