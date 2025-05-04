@@ -22,9 +22,11 @@ jobs:
 
       - name: Build com Maven
         run: mvn clean install
-
+        working-directory: ./devcalc-api
+      
       - name: Executar Testes
         run: mvn test
+        working-directory: ./devcalc-api
 
   package:
     runs-on: ubuntu-latest
