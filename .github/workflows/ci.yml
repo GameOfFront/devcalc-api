@@ -53,17 +53,22 @@ jobs:
       - name: Mensagem de simulação de deploy
         run: echo "Deploy realizado com sucesso"
 
-  lint:
+  code-style-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Run Super Linter
-        uses: github/super-linter@v6.4.1
-        env:
-          VALIDATE_ALL_CODEBASE: true
-          VALIDATE_JAVA: true
-          DEFAULT_BRANCH: main
-          DISABLE_ERRORS: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Java 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Instalar dependências do Checkstyle
+        run: mvn install -DskipTests
+        working-directory: ./devcalc-api
+
+      - name: Executar Checkstyle
+        run: mvn checkstyle:checkstyle
+        working-directory: ./devcalc-api
