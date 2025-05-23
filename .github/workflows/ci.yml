@@ -10,7 +10,7 @@ on:
 
 jobs:
   lint-and-test:
-    uses: ./.github/workflows/lint-and-test
+    uses: ./.github/workflows/lint-and-test.yml
 
   package:
     runs-on: ubuntu-latest
