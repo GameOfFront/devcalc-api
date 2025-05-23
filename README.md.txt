@@ -1,5 +1,7 @@
 # DevCalc API
 
+![CI Pipeline](https://github.com/GameOfFront/devcalc-api/actions/workflows/ci.yml/badge.svg)
+
 DevCalc é uma API REST em Java que fornece operações matemáticas simples como parte de um exercício de CI/CD com GitHub Actions.
 
 ## 🛠️ Ferramentas
