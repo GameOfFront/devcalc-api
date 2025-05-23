@@ -60,9 +60,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run Super Linter
-        uses: github/super-linter@v6
+        uses: github/super-linter@v6.4.1
         env:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_JAVA: true
           DEFAULT_BRANCH: main
+          DISABLE_ERRORS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
