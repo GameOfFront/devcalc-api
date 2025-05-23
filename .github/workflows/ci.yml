@@ -52,3 +52,17 @@ jobs:
     steps:
       - name: Mensagem de simulação de deploy
         run: echo "Deploy realizado com sucesso"
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Run Super Linter
+        uses: github/super-linter@v6
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_JAVA: true
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
