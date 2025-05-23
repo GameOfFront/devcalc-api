@@ -55,7 +55,7 @@ jobs:
           java-version: '21'
 
       - name: Build com Maven
-        run: mvn cleaan install
+        run: mvn clean install
         working-directory: ./devcalc-api
 
       - name: Executar Testes
