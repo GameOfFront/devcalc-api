@@ -1,1 +1,46 @@
+name: Lint and Test
+
+on:
+  workflow_call:
+
+jobs:
+  code-style-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Instalar dependências do Checkstyle
+        run: mvn install -DskipTests
+        working-directory: ./devcalc-api
+
+      - name: Executar Checkstyle
+        run: mvn checkstyle:checkstyle
+        working-directory: ./devcalc-api
+
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Build com Maven
+        run: mvn clean install
+        working-directory: ./devcalc-api
+
+      - name: Executar Testes
+        run: mvn test
+        working-directory: ./devcalc-api
 
