@@ -1,0 +1,31 @@
+name: Abertura Automática de Issue
+
+on:
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+env:
+  STAGE: ""
+
+jobs:
+  criar-issue:
+    runs-on: self-hosted
+
+    steps:
+      - name: Verificar variável STAGE
+        run: |
+          if ($env:STAGE -eq "") {
+            Write-Output "STAGE não está definida!"
+          } else {
+            Write-Output "STAGE = $env:STAGE"
+          }
+
+      - name: Criar issue se STAGE estiver ausente
+        if: ${{ env.STAGE == '' }}
+        run: |
+          curl -X POST https://api.github.com/repos/GameOfFront/devcalc-api/issues `
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" `
+            -H "Accept: application/vnd.github+json" `
+            -d '{ "title": "Erro de deploy: STAGE ausente", "body": "A variável de ambiente STAGE não está definida no workflow. Verificar configuração." }'
