@@ -7,25 +7,32 @@ permissions:
   issues: write
 
 env:
-  STAGE: ""
+  STAGE: ""  
 
 jobs:
   criar-issue:
     runs-on: self-hosted
 
+    defaults:
+      run:
+        shell: bash
+
     steps:
       - name: Verificar variável STAGE
         run: |
-          if ($env:STAGE -eq "") {
-            Write-Output "STAGE não está definida!"
-          } else {
-            Write-Output "STAGE = $env:STAGE"
-          }
+          if [[ -z "$STAGE" ]]; then
+            echo "STAGE não está definida!"
+          else
+            echo "STAGE = $STAGE"
+          fi
 
       - name: Criar issue se STAGE estiver ausente
         if: ${{ env.STAGE == '' }}
         run: |
-          curl -X POST https://api.github.com/repos/GameOfFront/devcalc-api/issues `
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" `
-            -H "Accept: application/vnd.github+json" `
-            -d '{ "title": "Erro de deploy: STAGE ausente", "body": "A variável de ambiente STAGE não está definida no workflow. Verificar configuração." }'
+          curl -X POST https://api.github.com/repos/GameOfFront/devcalc-api/issues \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -d '{
+              "title": "Erro de deploy: STAGE ausente",
+              "body": "A variável de ambiente STAGE não está definida no workflow. Verificar configuração."
+            }'
