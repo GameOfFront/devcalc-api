@@ -7,7 +7,7 @@ permissions:
   issues: write
 
 env:
-  STAGE: ""  # Simulando ausência da variável
+  STAGE: "" 
 
 jobs:
   criar-issue:
