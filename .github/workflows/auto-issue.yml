@@ -7,15 +7,18 @@ permissions:
   issues: write
 
 env:
-  STAGE: ""  # Simula ausência da variável
+  STAGE: ""  # Simulando ausência da variável
 
 jobs:
   criar-issue:
     runs-on: self-hosted
 
+    defaults:
+      run:
+        shell: powershell
+
     steps:
       - name: Verificar variável STAGE
-        shell: pwsh
         run: |
           if ($env:STAGE -eq "") {
             Write-Output "STAGE não está definida!"
@@ -25,7 +28,6 @@ jobs:
 
       - name: Criar issue se STAGE estiver ausente
         if: ${{ env.STAGE == '' }}
-        shell: pwsh
         run: |
           $headers = @{
             Authorization = "token ${{ secrets.GITHUB_TOKEN }}"
