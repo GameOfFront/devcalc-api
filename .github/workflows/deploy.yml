@@ -1,0 +1,40 @@
+name: Deploy para Dev e Prod
+
+on:
+  push:
+    branches: [dev, main]
+
+jobs:
+  deploy-dev:
+    if: github.ref == 'refs/heads/dev'
+    runs-on: self-hosted
+    environment:
+      name: dev
+    steps:
+      - name: Exibir informações do GitHub e Runner
+        run: |
+          Write-Output "Usuário que acionou o workflow: ${{github.actor}}"
+          Write-Output "Sistema operacional do runner: ${{runner.os}}"
+
+      - name: Exibir ambiente Dev
+        run: |
+          Write-Output "Iniciando deploy no ambiente: dev"
+          Write-Output "APP_ENV = ${{vars.APP_ENV}}"
+          Write-Output "Deploy no Dev concluído com sucesso 🚀"
+
+  deploy-prod:
+    if: github.ref == 'refs/heads/main'
+    runs-on: self-hosted
+    environment:
+      name: prod
+    steps:
+      - name: Exibir informações do GitHub e Runner
+        run: |
+          Write-Output "Usuário que acionou o workflow: ${{github.actor}}"
+          Write-Output "Sistema operacional do runner: ${{runner.os}}"
+
+      - name: Exibir ambiente Prod
+        run: |
+          Write-Output "Iniciando deploy no ambiente: prod"
+          Write-Output "Segredo de produção acessado: ${{secrets.PROD_API_KEY}}"
+          Write-Output "Deploy em Produção aguardando aprovação ✅"
