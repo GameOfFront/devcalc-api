@@ -1,0 +1,27 @@
+name: Demonstração de Contextos e Escopos
+
+on:
+  workflow_dispatch:
+
+env:
+  STAGE: workflow
+
+jobs:
+  contexto-demo:
+    runs-on: self-hosted
+    env:
+      STAGE: job
+
+    steps:
+      - name: Exibir informações do GitHub e Runner
+        run: |
+          echo "Usuário que acionou o workflow: ${{ github.actor }}"
+          echo "Sistema operacional do runner: ${{ runner.os }}"
+
+      - name: Mostrar STAGE em nível de job
+        run: echo "STAGE = $STAGE"
+
+      - name: Sobrescrever STAGE em nível de step
+        env:
+          STAGE: step
+        run: echo "STAGE sobrescrito no step = $STAGE"
