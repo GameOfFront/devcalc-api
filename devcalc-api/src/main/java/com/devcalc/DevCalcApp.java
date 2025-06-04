@@ -2,8 +2,6 @@ package com.devcalc;
 
 import io.javalin.Javalin;
 
-// Teste manual do CI/CD
-
 public class DevCalcApp {
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(7000);
@@ -32,5 +30,25 @@ public class DevCalcApp {
             double b = Double.parseDouble(ctx.queryParam("b"));
             ctx.result(String.valueOf(service.divide(a, b)));
         });
+
+        // ✅ NOVO ENDPOINT: /sqrt?x=16
+        app.get("/sqrt", ctx -> {
+            double x = Double.parseDouble(ctx.queryParam("x"));
+            double result = service.sqrt(x);
+            ctx.json(new SqrtResponse("sqrt", x, result));
+        });
+    }
+
+    // Classe interna para resposta em JSON
+    public static class SqrtResponse {
+        public String operation;
+        public double value;
+        public double result;
+
+        public SqrtResponse(String operation, double value, double result) {
+            this.operation = operation;
+            this.value = value;
+            this.result = result;
+        }
     }
 }
